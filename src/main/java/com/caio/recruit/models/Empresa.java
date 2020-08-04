@@ -1,5 +1,7 @@
 package com.caio.recruit.models;
 
+import com.caio.recruit.dtos.EmpresaDto;
+
 import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
@@ -16,6 +18,13 @@ public class Empresa {
 
     @OneToMany(mappedBy = "empresa")
     private List<Oportunidade> oportunidades;
+
+    public Empresa() {}
+
+    public Empresa(EmpresaDto dto) {
+        this.nome = dto.getNome();
+        this.oportunidades = dto.getOportunidades();
+    }
 
     public String getNome() {
         return nome;
