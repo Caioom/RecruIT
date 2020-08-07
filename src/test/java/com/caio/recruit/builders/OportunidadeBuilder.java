@@ -22,11 +22,15 @@ public class OportunidadeBuilder {
         builder.oportunidade.setHoraSaida("16:00");
         builder.oportunidade.setLocalTrabalho("remoto");
         builder.oportunidade.setSalario("1000");
-        builder.oportunidade.setEmpresa(new Empresa());
+        builder.oportunidade.setEmpresa(new Empresa("empresa"));
         builder.oportunidade.setEhUrgente(false);
         return builder;
     }
 
+    public OportunidadeBuilder semEmpresa() {
+        this.oportunidade.setEmpresa(null);
+        return this;
+    }
     public Oportunidade agora() {
         return this.oportunidade;
     }

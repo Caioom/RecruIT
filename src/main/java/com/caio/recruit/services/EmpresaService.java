@@ -8,8 +8,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmpresaService {
 
-    @Autowired
-    private EmpresaRepository empresaRepository;
+    private final EmpresaRepository empresaRepository;
+
+    public EmpresaService(final EmpresaRepository empresaRepository) {
+        this.empresaRepository = empresaRepository;
+    }
 
     public Empresa salvar(Empresa empresa) {
         return this.empresaRepository.save(empresa);

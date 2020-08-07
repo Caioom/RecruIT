@@ -1,6 +1,7 @@
 package com.caio.recruit.models;
 
 import com.caio.recruit.dtos.OportunidadeDto;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -42,7 +43,7 @@ public class Oportunidade {
     @Column(name = "data_criacao_vaga")
     private LocalDateTime dataCriacaoVaga;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Empresa empresa;
 
     @Column(name = "qtd_vagas")
@@ -66,6 +67,7 @@ public class Oportunidade {
         this.localTrabalho = dto.getLocalTrabalho();
         this.salario = dto.getSalario();
         this.vagas = dto.getVagas();
+        this.empresa = dto.getEmpresa();
     }
 
     private LocalDateTime converterParaData(String dataString) {

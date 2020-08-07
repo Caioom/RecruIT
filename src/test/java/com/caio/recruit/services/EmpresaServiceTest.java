@@ -29,8 +29,7 @@ public class EmpresaServiceTest {
     @Test
     public void deveRegistrarNovaEmpresa() {
         //cenario
-        var empresa = new Empresa();
-        empresa.setNome("empresa");
+        var empresa = new Empresa("empresa");
 
         when(empresaRepository.save(any(Empresa.class)))
                                     .thenReturn(empresa);

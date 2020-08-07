@@ -1,6 +1,7 @@
 package com.caio.recruit.builders;
 
 import com.caio.recruit.dtos.OportunidadeDto;
+import com.caio.recruit.models.Empresa;
 
 import java.time.LocalDateTime;
 
@@ -21,6 +22,7 @@ public class OportunidadeDtoBuilder {
         builder.oportunidadeDto.setHoraSaida("16:00");
         builder.oportunidadeDto.setLocalTrabalho("remoto");
         builder.oportunidadeDto.setSalario("1000");
+        builder.oportunidadeDto.setEmpresa(new Empresa("empresa"));
         builder.oportunidadeDto.setVagas(5);
         builder.oportunidadeDto.setEhUrgente(false);
         return builder;

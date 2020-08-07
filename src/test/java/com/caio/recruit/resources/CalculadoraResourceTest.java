@@ -1,4 +1,4 @@
-package com.caio.recruit.controllers;
+package com.caio.recruit.resources;
 
 import static java.lang.Double.parseDouble;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
-public class ControllerCalculadoraTest {
+public class CalculadoraResourceTest {
 
 	@Autowired
 	private MockMvc mockMvc;

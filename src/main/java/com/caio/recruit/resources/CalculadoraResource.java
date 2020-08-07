@@ -1,25 +1,28 @@
-package com.caio.recruit.controllers;
+package com.caio.recruit.resources;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.caio.recruit.services.interfaces.CalculadoraValeTransporteInterface;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.caio.recruit.exceptions.CalculadoraException;
 import com.caio.recruit.models.ValeTransporte;
-import com.caio.recruit.services.CalculadoraService;
+
 
 @RestController
 @RequestMapping("v1")
 @CrossOrigin("*")
-public class ControllerCalculadora {
-	
-	@Autowired
-	private CalculadoraService calculadoraService;
+public class CalculadoraResource {
+
+	private final CalculadoraValeTransporteInterface calculadoraService;
+
+	public CalculadoraResource(final CalculadoraValeTransporteInterface calculadoraService) {
+		this.calculadoraService = calculadoraService;
+	}
 
 	@PostMapping("vale")
 	public ResponseEntity<String> calcularValeTransporte(@RequestBody ValeTransporte vale) {
 		try {
-			Double result = this.calculadoraService.calcularVale(vale);
+			Double result = this.calculadoraService.calcular(vale);
 			
 			return ResponseEntity.ok().body(String.valueOf(result));
 		} catch (CalculadoraException e) {
@@ -31,7 +34,7 @@ public class ControllerCalculadora {
 	public ResponseEntity<String> calcularExcedente(@RequestParam("salario") Double salario, @RequestParam("vale") Double vale) {
 		double excedente = 0;
 		try {
-			excedente = this.calculadoraService.calcularExcedente(vale, salario);
+			excedente = this.calculadoraService.calcular(salario, vale);
 		} catch (CalculadoraException e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}

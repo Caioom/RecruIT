@@ -3,6 +3,8 @@ package com.caio.recruit.models;
 import com.caio.recruit.dtos.EmpresaDto;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,6 +23,11 @@ public class Empresa {
 
     public Empresa() {}
 
+    public Empresa(String nome) {
+        this.nome = nome;
+        this.oportunidades = new LinkedList<>();
+    }
+
     public Empresa(EmpresaDto dto) {
         this.nome = dto.getNome();
         this.oportunidades = dto.getOportunidades();
@@ -35,7 +42,7 @@ public class Empresa {
     }
 
     public List<Oportunidade> getOportunidades() {
-        return oportunidades;
+        return new ArrayList<>(oportunidades);
     }
 
     public void setOportunidades(List<Oportunidade> oportunidades) {
