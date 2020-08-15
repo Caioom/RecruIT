@@ -61,6 +61,19 @@ public class OportunidadeServiceTest {
             //verificacao
             assertThat(e.getMessage()).isEqualTo("A oportunidade deve ser de alguma empresa");
         }
-
     }
+
+    @Test
+    public void deveApagarOportunidadePeloId() {
+        //cenario
+        var oportunidade = umaOportunidade().agora();
+        oportunidade.setId(1L);
+
+        //acao
+        this.oportunidadeService.deletar(oportunidade.getId());
+
+        //verificacao
+        verify(this.oportunidadeRepository, times(1)).deleteById(oportunidade.getId());
+    }
+
 }

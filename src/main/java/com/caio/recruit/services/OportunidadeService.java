@@ -18,4 +18,8 @@ public class OportunidadeService {
         }
         return this.oportunidadeRepository.save(oportunidade);
     }
+
+    public void deletar(Long id) {
+        this.oportunidadeRepository.deleteById(id);
+    }
 }
