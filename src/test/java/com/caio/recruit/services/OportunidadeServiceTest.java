@@ -64,16 +64,37 @@ public class OportunidadeServiceTest {
     }
 
     @Test
-    public void deveApagarOportunidadePeloId() {
+    public void deveApagarOportunidade() throws OportunidadeException {
         //cenario
         var oportunidade = umaOportunidade().agora();
-        oportunidade.setId(1L);
+        oportunidade.getEmpresa().setOportunidades(Arrays.asList(oportunidade));
 
         //acao
-        this.oportunidadeService.deletar(oportunidade.getId());
+        this.oportunidadeService.deletarOportunidade(oportunidade.getEmpresa(), oportunidade);
 
         //verificacao
-        verify(this.oportunidadeRepository, times(1)).deleteById(oportunidade.getId());
+        verify(this.oportunidadeRepository, times(1)).delete(oportunidade);
     }
 
+    @Test
+    public void naoDeveExcluirOportunidadeDeOutraEmpresa() {
+        //cenario
+        var oportunidadeEmpresaUm = umaOportunidade().agora();
+        var oportunidadeDois = umaOportunidade().agora();
+
+        var empresaDois = new Empresa();
+        empresaDois.setNome("Empresa dois");
+
+        oportunidadeDois.setEmpresa(empresaDois);
+        empresaDois.setOportunidades(Arrays.asList(oportunidadeDois));
+
+        //acao
+        try {
+            this.oportunidadeService.deletarOportunidade(empresaDois, oportunidadeEmpresaUm);
+            fail();
+        } catch(OportunidadeException e) {
+            //verificacao
+            assertThat(e.getMessage()).isEqualTo("Não foi possível deletar essa oportunidade!");
+        }
+    }
 }
